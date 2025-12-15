@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Подорожі – Контакти</title>
+
+  <style>
+    :root {
+      --main-color: #4CAF50;
+      --main-hover: #45a049;
+      --bg-light: #f5f7fa;
+      --text-dark: #333;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: white;
+      padding: 15px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .menu-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .menu-item-link {
+      text-decoration: none;
+      color: var(--text-dark);
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .menu-item-link:hover,
+    .menu-item-link[aria-current="page"] {
+      color: var(--main-color);
+    }
+
+    .contact {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
+
+    .contact-card {
+      background-color: white;
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .contact-title {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--main-color);
+    }
+
+    .form-textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .form-button:hover {
+      background-color: var(--main-hover);
+      transform: translateY(-2px);
+    }
+
+    #successMessage {
+      display: none;
+      text-align: center;
+      color: green;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    footer {
+      background-color: #f2f2f2;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" class="logo" alt="Логотип Подорожі">
+  <nav>
+    <ul class="menu-links">
+      <li><a href="index.html" class="menu-item-link">Головна</a></li>
+      <li><a href="destinations.html" class="menu-item-link">Напрямки</a></li>
+      <li><a href="contact.html" class="menu-item-link" aria-current="page">Контакти</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="contact">
+  <div class="contact-card">
+    <h2 class="contact-title">Зв’яжіться з нами</h2>
+
+    <form id="contactForm" novalidate>
+      <label for="name" class="form-label">Імʼя</label>
+      <input type="text" id="name" class="form-input" placeholder="Ваше імʼя" required>
+
+      <label for="email" class="form-label">Електронна пошта</label>
+      <input type="email" id="email" class="form-input" placeholder="email@example.com" required>
+
+      <label for="message" class="form-label">Повідомлення</label>
+      <textarea id="message" class="form-textarea" placeholder="Ваше повідомлення" required></textarea>
+
+      <button type="submit" class="form-button">Надіслати повідомлення</button>
+    </form>
+
+    <p id="successMessage">Повідомлення надіслано успішно ✅</p>
+  </div>
+</section>
+
+<footer>
+  © 2025 Подорожі. Автор: Верста І. Ю. Всі права захищено.
+</footer>
+
+<script>
+  const form = document.getElementById('contactForm');
+  const button = form.querySelector('.form-button');
+  const successMessage = document.getElementById('successMessage');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    button.disabled = true;
+    button.textContent = 'Надсилання...';
+
+    setTimeout(() => {
+      successMessage.style.display = 'block';
+      button.textContent = 'Надіслано ✔';
+      form.reset();
+
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+        button.textContent = 'Надіслати повідомлення';
+        button.disabled = false;
+      }, 3000);
+    }, 800);
+  });
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
